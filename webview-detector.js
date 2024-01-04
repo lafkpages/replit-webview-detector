@@ -41,9 +41,7 @@ class WebViewDetector {
             topParent = current;
             pathsToCheck.push(topParent.location.pathname);
           }
-        } catch (err) {
-          
-        }
+        } catch {}
       }
     }
 
@@ -56,10 +54,12 @@ class WebViewDetector {
   }
 
   isFullScreen() {
-    // if isn't in webview, URL matches fullscreen, is not in an iframe
-    // and has no ancestor origins, then is fullscreen
-    if ((!this.isWebView()) && /^(?:([^.\/]+)(\.|--))?[^.\/]+\.repl\.co$/i.test(window.location.hostname) && (!frameElement) && window.location.ancestorOrigins.length === 0)
-      return true;
+    try {
+      if (window.top == window) {
+        return true;
+      }
+    } catch {}
+
     return false;
   }
 }
