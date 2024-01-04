@@ -1,8 +1,4 @@
 class WebViewDetector {
-  constructor() {
-    
-  }
-
   isWebView(direct = false) {
     // if direct, will only return true if the direct parent is a webview
     // if not, it will detect webviews in higher levels
