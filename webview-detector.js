@@ -1,53 +1,43 @@
 class WebViewDetector {
-  isWebView(direct = false) {
-    // if direct, will only return true if the direct parent is a webview
-    // if not, it will detect webviews in higher levels
+  maxParentWindows = 100;
 
-    // if localstorage is accesible, cannot be in webview
-    try {
-      localStorage;
+  isWebView() {
+    if (this.isFullScreen()) {
       return false;
-    } catch (err) {
-      // if not accessible, may be due to webview
-      // OR cookie settings, so must continue checking
     }
 
-    // if replit is in ancestor origins, is in webview
-    // only if not direct, because if not direct, should
-    // return false but this might make it true
-    if (!direct)
-      if (window.location.ancestorOrigins.contains('https://replit.com') || window.location.ancestorOrigins.contains('http://replit.com'))
-        return true;
+    const windows = [window];
 
-    let pathsToCheck = [window.location.pathname];
-
-    try {
-      pathsToCheck.push(window.top.location.pathname);
-    } catch (err) {  }
-
-    if (direct) {
+    while (true) {
       try {
-        pathsToCheck.push(window.parent.location.pathname);
-      } catch (err) {  }
-    } else {
-      let topParent = window;
-      while (true) {
-        try {
-          const current = topParent.parent;
+        const lastWindow = windows[windows.length - 1];
+        const newWindow = lastWindow.parent;
 
-          if (topParent == current) {
-            break;
-          } else {
-            topParent = current;
-            pathsToCheck.push(topParent.location.pathname);
-          }
-        } catch {}
+        if (lastWindow === newWindow) {
+          break;
+        }
+
+        if (windows.length > this.maxParentWindows) {
+          break;
+        }
+
+        windows.push(newWindow);
+      } catch {
+        break;
       }
     }
 
-    for (const path of pathsToCheck) {
-      if (path == '/__devtools_wrapper.html')
+    for (const window of windows) {
+      let parentIsWrapper = false;
+      try {
+        if (window.parent.location.pathname == '/__replco/devtools_wrapper.html') {
+          parentIsWrapper = true;
+        }
+      } catch {}
+
+      if (parentIsWrapper && window.location.origin.endsWith('.replit.dev')) {
         return true;
+      }
     }
 
     return false;
@@ -55,7 +45,7 @@ class WebViewDetector {
 
   isFullScreen() {
     try {
-      if (window.top == window) {
+      if (window.top === window) {
         return true;
       }
     } catch {}
