@@ -1,7 +1,7 @@
-class WebViewDetector {
+class ReplitWebviewDetector {
   maxParentWindows = 100;
 
-  isWebView() {
+  isWebview() {
     if (this.isFullScreen()) {
       return false;
     }
@@ -43,6 +43,11 @@ class WebViewDetector {
     return false;
   }
 
+  // for backwards-compatibility
+  isWebView() {
+    return this.isWebview();
+  }
+
   isFullScreen() {
     try {
       if (window.top === window) {
@@ -53,3 +58,6 @@ class WebViewDetector {
     return false;
   }
 }
+
+// for backwards-compatibility
+const WebViewDetector = ReplitWebviewDetector;

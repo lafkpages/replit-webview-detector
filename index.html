@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Replit WebView Detector</title>
+  <title>Replit Webview Detector</title>
 
   <!-- app info -->
   <meta name="author" content="LuisAFK">
-  <meta name="application-name" content="Replit WebView Detector">
-  <meta name="description" content="A very small and lightweight library for detecting the Replit WebView and fullscreen modes.">
-  <meta property="og:title" content="Replit WebView Detector">
-  <meta property="og:description" content="A very small and lightweight library for detecting the Replit WebView and fullscreen modes.">
+  <meta name="application-name" content="Replit Webview Detector">
+  <meta name="description" content="A very small and lightweight library for detecting the Replit Webview and fullscreen modes.">
+  <meta property="og:title" content="Replit Webview Detector">
+  <meta property="og:description" content="A very small and lightweight library for detecting the Replit Webview and fullscreen modes.">
 
   <link rel="shortcut icon" href="webview50.png" type="image/png" sizes="32x32 48x48 50x50">
   <link rel="shortcut icon" href="webview512.png" type="image/png" sizes="any">
@@ -30,8 +30,8 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <h1>Replit WebView detector</h1>
-  <p>A very small and lightweight library for detecting the Replit WebView and fullscreen modes.</p>
+  <h1>Replit Webview detector</h1>
+  <p>A very small and lightweight library for detecting the Replit Webview and fullscreen modes.</p>
 
   <!-- <h2 id="h-contents">Table of contents</h2>
   <ul>
@@ -45,7 +45,7 @@
           <a href="#h-in-iframe">In an iFrame</a>
         </li>
         <li>
-          <a href="#h-in-webview">In the Replit WebView</a>
+          <a href="#h-in-webview">In the Replit Webview</a>
         </li>
         <li>
           <a href="#h-in-runview">In the Replit Run View</a>
@@ -60,16 +60,16 @@
   <h2 id="h-try-it">Try it</h2>
   <h3 id="h-current-window">In the current window</h3>
   <div id="tests">
-    <p>Is in WebView: <samp class="hl-literal" id="is-webview"></samp></p>
+    <p>Is in Webview: <samp class="hl-literal" id="is-webview"></samp></p>
     <p>Is in fullscreen: <samp class="hl-literal" id="is-fullscreen"></samp></p>
   </div>
 
   <h3 id="h-in-iframe">In an iFrame</h3>
   <iframe src="iframe.html" frameborder="0" id="iframe-tests" scrolling="no"></iframe>
 
-  <h3 id="h-in-webview">In the Replit WebView</h3>
+  <h3 id="h-in-webview">In the Replit Webview</h3>
   <div id="webview-screenshot-crop">
-    <img src="webview-screenshot.png" alt="WebView screenshot">
+    <img src="webview-screenshot.png" alt="Webview screenshot">
   </div>
 
   <h3 id="h-in-runview">In the Replit Run View</h3>
@@ -78,30 +78,21 @@
   <h2 id="h-how-to">How to use</h2>
   <p>Include the following script in your page:</p>
   <code>
-    <span class="hl-comment">&lt;&excl;-- load the WebView detector library --&gt;</span><br>
-    &lt;<span class="hl-literal">script</span> <span class="hl-attribute">src</span>=<span class="hl-variable">"https:&#47;&#47;webview-detector.luisafk.repl.co&#47;webview-detector.js"</span>&gt;&lt;&#47;<span class="hl-literal">script</span>&gt;
+    <span class="hl-comment">&lt;&excl;-- load the Webview detector library --&gt;</span><br>
+    &lt;<span class="hl-literal">script</span> <span class="hl-attribute">src</span>=<span class="hl-variable">"https:&#47;&#47;replit-webview-detector.pages.dev&#47;webview-detector.js"</span>&gt;&lt;&#47;<span class="hl-literal">script</span>&gt;
   </code>
-  <br>
-  <p>Then, to detect any kind of Replit WebView, use the following:</p>
+  <p>Then, to detect if you're inside the Webview in the Replit workspace, use the following:</p>
   <code>
-    <span class="hl-keyword">const</span>&nbsp;<span class="hl-literal">detector</span> = <span class="hl-keyword">new</span> <span class="hl-literal">WebViewDetector</span>()&#59;<br>
+    <span class="hl-keyword">const</span>&nbsp;<span class="hl-literal">detector</span> = <span class="hl-keyword">new</span> <span class="hl-literal">ReplitWebviewDetector</span>()&#59;<br>
     <br>
-    <span class="hl-comment">// detect any kind of Replit WebView</span><br>
-    <span class="hl-variable">detector</span>.<span class="hl-literal">isWebView</span>();
+    <span class="hl-comment">// detect Replit Webview</span><br>
+    <span class="hl-variable">detector</span>.<span class="hl-literal">isWebview</span>();
   </code>
-  <br>
-  <p>If you only want to detect direct WebViews, use the following:</p>
-  <code>
-    <span class="hl-comment">// only detect direct WebViews</span><br>
-    <span class="hl-variable">detector</span>.<span class="hl-literal">isWebView</span>(<span class="hl-literal">true</span>);
-  </code>
-  <p style="margin-block-end: 0px;">A WebView is considered direct if it is the first parent of the current window&#47;context. If a WebView contains an iFrame that embeds the current window&#47;context, it is not considered direct. You will usually want to detect all WebViews, so usually the <samp>direct</samp> option is not specified, or is set to <samp class="hl-literal">false</samp>.</p>
-  <br>
-  <p style="margin-block-start: 0px;">If you want to detect fullscreen, use the following:</p>
+  <p>If you want to detect fullscreen, use the following:</p>
   <code>
     <span class="hl-comment">// detect fullscreen mode</span><br>
     <span class="hl-variable">detector</span>.<span class="hl-literal">isFullScreen</span>();
   </code>
-  <p>Fullscreen is when the page is opened in it's own tab, with a URL ending in <samp class="hl-variable">.repl.co</samp></p>
+  <p>Fullscreen is when the page is opened in it's own tab, and is the topmost window.</p>
 </body>
 </html>

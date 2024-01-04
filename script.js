@@ -10,7 +10,7 @@ window.addEventListener('load', e => {
   }
 });
 
-const detector = new WebViewDetector();
+const detector = new ReplitWebviewDetector();
 
-span1.innerText = detector.isWebView();
+span1.innerText = detector.isWebview();
 span2.innerText = detector.isFullScreen();
